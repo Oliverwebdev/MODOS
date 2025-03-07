@@ -1,184 +1,184 @@
 # DoS-Test-Framework
 
-Ein fortgeschrittenes DoS-Test-Framework für autorisierte Sicherheits- und Forschungstests. Dieses Tool bietet verschiedene Angriffsmethoden zur Durchführung von Penetrationstests und zur Überprüfung der Widerstandsfähigkeit von Netzwerkinfrastrukturen gegen Denial-of-Service-Angriffe.
+An advanced DoS Testing Framework for authorized security assessments and research. This tool provides various attack methods to conduct penetration tests and verify the resilience of network infrastructures against denial-of-service attacks.
 
-## ⚠️ Wichtiger Hinweis
+## ⚠️ Important Notice
 
-**Dieses Tool darf ausschließlich für folgende Zwecke verwendet werden:**
-- Autorisierte Sicherheitstests
-- Forschung und Bildung
-- Tests in eigenen Netzwerken
+**This tool may only be used for the following purposes:**
+- Authorized security testing
+- Research and education
+- Tests on your own networks
 
-**Die unbefugte Verwendung dieses Tools gegen nicht autorisierte Ziele ist illegal und kann strafrechtliche Konsequenzen haben.**
+**Unauthorized use of this tool against non-authorized targets is illegal and may have criminal consequences.**
 
-## 📋 Funktionen
+## 📋 Features
 
-Das Framework bietet verschiedene Angriffsmethoden:
+The framework offers various attack methods:
 
-| Angriffstyp | Beschreibung |
-|-------------|--------------|
-| `syn_flood` | TCP SYN-Flood-Angriff |
-| `udp_flood` | UDP-Paketflut |
-| `http_flood` | HTTP-Request-Flood |
-| `icmp_flood` | ICMP/Ping-Flood |
-| `slowloris` | Slowloris-Verbindungserschöpfung |
-| `dns_amplification` | DNS-Amplification-Angriff |
-| `ntp_amplification` | NTP-Amplification-Angriff |
-| `dns_water_torture` | DNS Water Torture Angriff mit zufälligen Subdomains |
-| `tcp_reset` | TCP-Reset-Paketflut |
+| Attack Type | Description |
+|-------------|------------|
+| `syn_flood` | TCP SYN flood attack |
+| `udp_flood` | UDP packet flood |
+| `http_flood` | HTTP request flood |
+| `icmp_flood` | ICMP/Ping flood |
+| `slowloris` | Slowloris connection exhaustion |
+| `dns_amplification` | DNS amplification attack |
+| `ntp_amplification` | NTP amplification attack |
+| `dns_water_torture` | DNS water torture attack with random subdomains |
+| `tcp_reset` | TCP reset packet flood |
 
 ## 🔧 Installation
 
-### Voraussetzungen
+### Prerequisites
 
-- Python 3.8 oder höher
-- pip (Python-Paketmanager)
-- Root-/Administrator-Rechte (für einige Angriffsmethoden)
+- Python 3.8 or higher
+- pip (Python package manager)
+- Root/Administrator privileges (for some attack methods)
 
-### Installation der Abhängigkeiten
+### Installing Dependencies
 
 ```bash
-# Klonen des Repositories
+# Clone the repository
 git clone https://github.com/username/dos-framework.git
 cd dos-framework
 
-# Installation der Abhängigkeiten
+# Install dependencies
 pip install -r requirements.txt
 
-# Optional: Installation des Pakets im Entwicklungsmodus
+# Optional: Install the package in development mode
 pip install -e .
 ```
 
-## 🚀 Verwendung
+## 🚀 Usage
 
-### Grundlegende Verwendung
+### Basic Usage
 
-Wir empfehlen die Verwendung des bereitgestellten Wrapper-Scripts `run_attack.py`:
+We recommend using the provided wrapper script `run_attack.py`:
 
 ```bash
-# Ausführbares Script erstellen
+# Make the script executable
 chmod +x run_attack.py
 
-# Ausführen eines Angriffs
-./run_attack.py --attack <angriffstyp> --target <ziel> --duration <dauer_in_sekunden>
+# Run an attack
+./run_attack.py --attack <attack_type> --target <target> --duration <duration_in_seconds>
 ```
 
-### Verfügbare Parameter
+### Available Parameters
 
-| Parameter | Beschreibung | Standardwert |
-|-----------|--------------|--------------|
-| `--attack` | Angriffstyp (erforderlich) | - |
-| `--target` | Zieladresse (IP oder Domain, erforderlich) | - |
-| `--port` | Zielport | 80 |
-| `--duration` | Angriffsdauer in Sekunden | 30 |
-| `--threads` | Anzahl der zu verwendenden Threads | 10 |
-| `--timeout` | Verbindungs-Timeout in Sekunden | 5.0 |
+| Parameter | Description | Default Value |
+|-----------|------------|--------------|
+| `--attack` | Attack type (required) | - |
+| `--target` | Target address (IP or domain, required) | - |
+| `--port` | Target port | 80 |
+| `--duration` | Attack duration in seconds | 30 |
+| `--threads` | Number of threads to use | 10 |
+| `--timeout` | Connection timeout in seconds | 5.0 |
 
-### Beispiele
+### Examples
 
 ```bash
-# SYN-Flood gegen einen Webserver
-./run_attack.py --attack syn_flood --target beispiel.de --duration 20
+# SYN flood against a web server
+./run_attack.py --attack syn_flood --target example.com --duration 20
 
-# UDP-Flood mit mehr Threads
+# UDP flood with more threads
 ./run_attack.py --attack udp_flood --target 192.168.1.1 --threads 50 --duration 15
 
-# DNS-Amplification-Angriff
-./run_attack.py --attack dns_amplification --target beispiel.de --duration 10
+# DNS amplification attack
+./run_attack.py --attack dns_amplification --target example.com --duration 10
 
-# Slowloris-Angriff gegen einen nicht-Standard-Port
-./run_attack.py --attack slowloris --target beispiel.de --port 8080 --duration 30
+# Slowloris attack against a non-standard port
+./run_attack.py --attack slowloris --target example.com --port 8080 --duration 30
 ```
 
-## 🔍 Funktionsweise der Angriffsmethoden
+## 🔍 How the Attack Methods Work
 
-### SYN-Flood
-Sendet eine große Anzahl von TCP-SYN-Paketen an das Ziel, ohne den Handshake abzuschließen, um die Verbindungs-Warteschlange zu füllen.
+### SYN Flood
+Sends a large number of TCP SYN packets to the target without completing the handshake, filling up the connection queue.
 
-### UDP-Flood
-Überschwemmt das Ziel mit UDP-Paketen, was zu einer Bandbreitenerschöpfung führen kann.
+### UDP Flood
+Floods the target with UDP packets, potentially leading to bandwidth exhaustion.
 
-### HTTP-Flood
-Sendet zahlreiche HTTP-GET- oder POST-Anfragen an einen Webserver, um ihn zu überlasten.
+### HTTP Flood
+Sends numerous HTTP GET or POST requests to a web server to overload it.
 
 ### Slowloris
-Hält HTTP-Verbindungen offen, indem unvollständige Anfragen gesendet werden, die langsam ergänzt werden.
+Keeps HTTP connections open by sending incomplete requests that are slowly completed.
 
-### DNS-Amplification
-Nutzt öffentliche DNS-Server, um verstärkte DNS-Anfragen an das Ziel weiterzuleiten, mit gefälschter Quell-IP.
+### DNS Amplification
+Uses public DNS servers to forward amplified DNS requests to the target, with spoofed source IP.
 
-### NTP-Amplification
-Nutzt NTP-Server für verstärkte Antworten durch den MONLIST-Befehl, mit gefälschter Quell-IP.
+### NTP Amplification
+Uses NTP servers for amplified responses through the MONLIST command, with spoofed source IP.
 
 ### DNS Water Torture
-Sendet Anfragen für nicht existierende Subdomains, um DNS-Resolver zu überlasten.
+Sends requests for non-existent subdomains to overload DNS resolvers.
 
-### ICMP-Flood
-Sendet eine große Anzahl von ICMP-Echo-Anfragen (Ping), um die Netzwerkbandbreite zu erschöpfen.
+### ICMP Flood
+Sends a large number of ICMP echo requests (ping) to exhaust network bandwidth.
 
-### TCP-Reset
-Sendet TCP-Reset-Pakete, um bestehende Verbindungen zu unterbrechen.
+### TCP Reset
+Sends TCP reset packets to interrupt existing connections.
 
-## ⚙️ Erweiterte Konfiguration
+## ⚙️ Advanced Configuration
 
-Das Framework bietet erweiterte Konfigurationsoptionen durch die Anpassung der `config.py`-Datei:
+The framework offers advanced configuration options by customizing the `config.py` file:
 
-- IP-Spoofing-Einstellungen
-- Paketgrößenvariationen
-- Benutzerdefinierte HTTP-Header und User-Agents
-- DNS-Server-Listen für Amplification-Angriffe
-- TTL-Variationen für Paketmanipulation
-- Und vieles mehr...
+- IP spoofing settings
+- Packet size variations
+- Custom HTTP headers and user agents
+- DNS server lists for amplification attacks
+- TTL variations for packet manipulation
+- And much more...
 
-## 📊 Statistiken und Überwachung
+## 📊 Statistics and Monitoring
 
-Das Framework enthält eine integrierte Statistikfunktion, die während des Angriffs Informationen anzeigt:
+The framework includes a built-in statistics function that displays information during the attack:
 
-- Pakete pro Sekunde (PPS)
-- Übertragene Daten (MB/s)
-- Erfolgsrate der Verbindungen
-- Erkannte Schutzmaßnahmen (WAF, Rate-Limiting)
+- Packets per second (PPS)
+- Transferred data (MB/s)
+- Connection success rate
+- Detected protection measures (WAF, rate limiting)
 
-## 📂 Projektstruktur
+## 📂 Project Structure
 
 ```
 dos-framework/
 ├── src/
-│   ├── attacks/         # Angriffsmethoden
-│   ├── core/            # Kernfunktionalität
-│   ├── utils/           # Hilfsfunktionen
-│   ├── web/             # Web-UI (optional)
-│   ├── config.py        # Konfigurationsdatei
-│   └── main.py          # Haupt-Einstiegspunkt
-├── requirements.txt     # Abhängigkeiten
-├── setup.py             # Installationsskript
-└── run_attack.py        # Wrapper-Script für einfache Nutzung
+│   ├── attacks/         # Attack methods
+│   ├── core/            # Core functionality
+│   ├── utils/           # Helper functions
+│   ├── web/             # Web UI (optional)
+│   ├── config.py        # Configuration file
+│   └── main.py          # Main entry point
+├── requirements.txt     # Dependencies
+├── setup.py             # Installation script
+└── run_attack.py        # Wrapper script for easy use
 ```
 
-## 🛡️ Verteidigung gegen DoS-Angriffe
+## 🛡️ Defense Against DoS Attacks
 
-Hier sind einige Maßnahmen zur Abwehr von DoS-Angriffen:
+Here are some measures to defend against DoS attacks:
 
-- Implementierung von Rate-Limiting
-- Verwendung von Load-Balancern
-- Konfiguration von Firewall-Regeln
-- Einsatz spezialisierter Anti-DDoS-Dienste
-- Konfiguration von SYN-Cookies
-- Überwachung und Filterung des Netzwerkverkehrs
+- Implementing rate limiting
+- Using load balancers
+- Configuring firewall rules
+- Deploying specialized anti-DDoS services
+- Configuring SYN cookies
+- Monitoring and filtering network traffic
 
-## 🔄 Weiterentwicklung
+## 🔄 Future Development
 
-Mögliche Erweiterungen für zukünftige Versionen:
+Possible extensions for future versions:
 
-- Web-Benutzeroberfläche zur einfacheren Steuerung
-- Automatische Zielanalyse und Anpassung der Angriffsmethoden
-- Erweiterte Berichterstattung und Protokollierung
-- Integration mit Monitoring-Tools
+- Web-based user interface for easier control
+- Automatic target analysis and adaptation of attack methods
+- Enhanced reporting and logging
+- Integration with monitoring tools
 
-## 📜 Lizenz
+## 📜 License
 
-Dieses Projekt wird unter den Bedingungen der MIT-Lizenz veröffentlicht. Siehe die [LICENSE](LICENSE)-Datei für Details.
+This project is released under the terms of the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-**Haftungsausschluss:** Die Autoren übernehmen keine Verantwortung für Schäden oder rechtliche Konsequenzen, die durch die Verwendung dieses Tools entstehen. Die Verwendung erfolgt auf eigene Gefahr und Verantwortung.
+**Disclaimer:** The authors assume no responsibility for damages or legal consequences arising from the use of this tool. Use at your own risk and responsibility.
