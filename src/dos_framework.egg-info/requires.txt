@@ -1,0 +1,8 @@
+aiohttp
+fastapi
+uvicorn
+colorama
+numpy
+psutil
+scapy
+requests
